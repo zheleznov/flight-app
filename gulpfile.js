@@ -10,8 +10,8 @@ var babel = require("gulp-babel"); //babel ecma2015
 gulp.task('default', ['styles', 'babel'], function(){
     gulp.watch('app/sass/**/*.scss', ['styles']);
     gulp.watch('app/js/**/*.js', ['babel']);
-    gulp.watch('app/index.html', ['copy-html']);
-    gulp.watch('app/dist/index.html').on('change', browserSync.reload);
+    //gulp.watch('app/index.html', ['copy-html']);
+    gulp.watch('app/index.html').on('change', browserSync.reload);
 });
 
 //run sass with autoprefixer
@@ -21,7 +21,7 @@ gulp.task('styles', function(){
         .pipe(autoprefixer({
             browsers: ['last 2 versions']
         }))
-        .pipe(gulp.dest('app/css'))
+        .pipe(gulp.dest('app/styles'))
 });
 
 //ecma2015
@@ -34,20 +34,20 @@ gulp.task('babel', function(){
 //copy index.html to product
 gulp.task('copy-html', function(){
     gulp.src('app/index.html')
-        .pipe(gulp.dest('app/dist'));
+        .pipe(gulp.dest('./dist'));
 });
 
 //copy bootstrap to product folder
 gulp.task('copy-bootstrap', function(){
-    gulp.src('app/css/material.min.css')
-        .pipe(gulp.dest('app/dist/css'));
+    gulp.src('app/styles/material.min.css')
+        .pipe(gulp.dest('./dist/styles'));
 });
 
 //concat scripts
-gulp.task('scripts', function(){
-    gulp.src('js/**/*.js')
+gulp.task('concat-scripts', function(){
+    gulp.src('scripts/**/*.js')
         .pipe(concat('all.js'))
-        .pipe(gulp.dest('./dist/js'));
+        .pipe(gulp.dest('app'));
 });
 
 //concat and minify
