@@ -11,7 +11,7 @@ import source from 'vinyl-source-stream';
 
 var browserSync = require('browser-sync').create(); //browser sync
 
-gulp.task('default', ['styles', 'copy-html', 'copy-bower', 'scripts'], function(){
+gulp.task('default', ['styles', 'copy-html', 'copy-bower', 'scripts'], ()=> {
     gulp.watch('app/sass/**/*.scss', ['styles']);
     gulp.watch('app/src/**/*.js', ['scripts']);
     gulp.watch('app/index.html', ['copy-html']);
@@ -20,7 +20,7 @@ gulp.task('default', ['styles', 'copy-html', 'copy-bower', 'scripts'], function(
 });
 
 //run sass with autoprefixer
-gulp.task('styles', function(){
+gulp.task('styles', ()=> {
     gulp.src('app/sass/**/*.scss')
         .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
         .pipe(autoprefixer({
@@ -30,13 +30,13 @@ gulp.task('styles', function(){
 });
 
 //copy index.html to product
-gulp.task('copy-html', function(){
+gulp.task('copy-html', ()=> {
     gulp.src('app/index.html')
         .pipe(gulp.dest('dist'));
 });
 
 //scripts task
-gulp.task('scripts', ()=>{
+gulp.task('scripts', ()=> {
     var bundler = browserify({
         entries: 'app/src/main.js',
         debug: true
@@ -44,17 +44,19 @@ gulp.task('scripts', ()=>{
     bundler.transform(babelify);
 
     bundler.bundle()
-        .on('error', function (err) { console.error(err); })
+        .on('error', function (err) {
+            console.error(err);
+        })
         .pipe(source('main.js'))
         .pipe(buffer())
-        .pipe(sourcemaps.init({ loadMaps: true }))
+        .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(uglify()) // Use any gulp plugins you want now
         .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest('dist/scripts'));
 });
 
 //copy bower plugins to product folder
-gulp.task('copy-bower', function(){
+gulp.task('copy-bower', ()=> {
     gulp.src('bower_components/material-design-lite/material.min.css')
         .pipe(gulp.dest('dist/styles'));
     gulp.src('bower_components/material-design-lite/material.min.js')
