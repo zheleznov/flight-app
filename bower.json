@@ -16,7 +16,7 @@
     "tests"
   ],
   "dependencies": {
-    "handlebars": "^4.0.5",
-    "material-design-lite": "^1.1.2"
+    "material-design-lite": "^1.1.2",
+    "react": "^0.14.7"
   }
 }
