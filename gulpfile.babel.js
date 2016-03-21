@@ -3,7 +3,6 @@ import sass from 'gulp-sass'; //sass compiler
 import autoprefixer from 'gulp-autoprefixer'; //add autoprefixes to styles
 import uglify from 'gulp-uglify'; //minify scripts
 import sourcemaps from 'gulp-sourcemaps';
-import babel from 'gulp-babel'; //babel ecma2015
 import browserify from 'browserify';
 import babelify from 'babelify';
 import buffer from 'vinyl-buffer';

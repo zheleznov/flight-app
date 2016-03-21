@@ -10,9 +10,65 @@
     <script src="scripts/lib/material.min.js"></script>
     <script src="scripts/lib/react.min.js"></script>
     <script src="scripts/lib/react-dom.min.js"></script>
+
+
 </head>
 <body>
-    <h1>Hello world!</h1>
+
+<!-- Always shows a header, even in smaller screens. -->
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+            <!-- Title -->
+            <span class="mdl-layout-title">Flight Schedule</span>
+            <!-- Add spacer, to align navigation to the right -->
+            <div class="mdl-layout-spacer"></div>
+            <!-- Navigation. We hide it in small screens. -->
+            <nav class="mdl-navigation mdl-layout--large-screen-only main-navigation">
+                <a class="mdl-navigation__link" data-page="airports" href="">Airports</a>
+                <a class="mdl-navigation__link" data-page="planes" href="">Planes</a>
+                <a class="mdl-navigation__link" data-page="contacts" href="">Contacts</a>
+                <a class="mdl-navigation__link" data-page="about" href="">About</a>
+            </nav>
+        </div>
+    </header>
+    <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title">Title</span>
+        <nav class="mdl-navigation drawer-navigation">
+            <a class="mdl-navigation__link" data-page="airports" href="">Airports</a>
+            <a class="mdl-navigation__link" data-page="planes" href="">Planes</a>
+            <a class="mdl-navigation__link" data-page="contacts" href="">Contacts</a>
+            <a class="mdl-navigation__link" data-page="about" href="">About</a>
+        </nav>
+    </div>
+    <main class="mdl-layout__content">
+        <div class="page-content">
+            <!--<div class="mdl-grid">
+                <div class="mdl-cell mdl-cell--4-col inputs-block">
+                    <p>Departure</p>
+                    <form action="#">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" id="sample3">
+                            <label class="mdl-textfield__label" for="sample3">City name or airport code</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="mdl-cell mdl-cell--8-col schedule-block">Please select </div>
+            </div>-->
+        </div>
+    </main>
+
+    <footer class="mdl-mini-footer">
+        <div class="mdl-mini-footer__left-section">
+            <div class="mdl-logo">Flight Schedule</div>
+            <ul class="mdl-mini-footer__link-list">
+                <li><a href="#">Help</a></li>
+                <li><a href="#">Privacy & Terms</a></li>
+            </ul>
+        </div>
+    </footer>
+</div>
+
     <script src="scripts/main.js"></script>
 </body>
 </html>

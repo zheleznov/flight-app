@@ -1,3 +1,5 @@
-import a from './export.js';
+import router from './router.js';
 
-console.log(a+a+a);
+
+
+
