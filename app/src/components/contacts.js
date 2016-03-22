@@ -1,12 +1,18 @@
+import {fireBase} from '../configs.js';
+
 export default class Contacts extends React.Component {
     constructor(props){
         super(props);
 
         this.state = {
-            message: '',
-            email: '',
-            name: '',
-            isDisabled: true
+            data: {
+                message: '',
+                email: '',
+                name: ''
+            },
+            isDisabled: true,
+            isSend: false,
+            isError: false
         };
 
         this.sendMessage = this.sendMessage.bind(this);
@@ -20,15 +26,27 @@ export default class Contacts extends React.Component {
         data.email = ReactDOM.findDOMNode(this.refs.email).value;
         data.message = ReactDOM.findDOMNode(this.refs.message).value;
 
-        if(data.name !== '' && data.message !== '' && data.email.match(/^.+@.+\..+$/)) this.setState({isDisabled: false});
+        if(data.name !== '' && data.message !== '' && data.email.match(/^.+@.+\..+$/)) {
+            this.setState({isDisabled: false});
+            this.setState({data: data});
+        }
     }
 
-    sendMessage(){
-        
+    sendMessage(e) {
+        e.preventDefault();
+        fireBase.set({userMessage: this.state.data}, (error)=> {
+            if (error) {
+                this.setState({isError: true});
+            } else {
+                this.setState({isSend: true});
+            }
+        });
     }
 
     render() {
         let isDisabled = this.state.isDisabled;
+        let isSend = this.state.isSend;
+        let isError = this.state.isError;
 
         return (
             <div className="mdl-grid contacts-page">
@@ -53,6 +71,12 @@ export default class Contacts extends React.Component {
                         <button disabled={isDisabled} onClick={this.sendMessage} className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored send-message">
                             Send message
                         </button>
+                        <div className={isSend === true ? 'mdl-grid success-message' : 'success-message-hide'}>
+                            Cool! Thanks for your message!
+                        </div>
+                        <div className={isError === true ? 'mdl-grid error-message' : 'error-message-hide'}>
+                            Something goes wrong :( Please try again or later.
+                        </div>
                     </form>
                 </div>
             </div>

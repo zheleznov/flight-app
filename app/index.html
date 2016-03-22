@@ -10,6 +10,12 @@
     <script src="scripts/lib/material.min.js"></script>
     <script src="scripts/lib/react.min.js"></script>
     <script src="scripts/lib/react-dom.min.js"></script>
+    <script src="scripts/lib/firebase.js"></script>
+
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 
 
 </head>
@@ -25,8 +31,8 @@
             <div class="mdl-layout-spacer"></div>
             <!-- Navigation. We hide it in small screens. -->
             <nav class="mdl-navigation mdl-layout--large-screen-only main-navigation">
+                <a class="mdl-navigation__link" data-page="schedule" href="">Schedule</a>
                 <a class="mdl-navigation__link" data-page="airports" href="">Airports</a>
-                <a class="mdl-navigation__link" data-page="planes" href="">Planes</a>
                 <a class="mdl-navigation__link" data-page="contacts" href="">Contacts</a>
                 <a class="mdl-navigation__link" data-page="about" href="">About</a>
             </nav>
@@ -35,8 +41,8 @@
     <div class="mdl-layout__drawer">
         <span class="mdl-layout-title">Title</span>
         <nav class="mdl-navigation drawer-navigation">
+            <a class="mdl-navigation__link" data-page="schedule" href="">Schedule</a>
             <a class="mdl-navigation__link" data-page="airports" href="">Airports</a>
-            <a class="mdl-navigation__link" data-page="planes" href="">Planes</a>
             <a class="mdl-navigation__link" data-page="contacts" href="">Contacts</a>
             <a class="mdl-navigation__link" data-page="about" href="">About</a>
         </nav>
