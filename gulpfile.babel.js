@@ -64,6 +64,8 @@ gulp.task('copy-bower', ()=> {
         .pipe(gulp.dest('dist/scripts/lib'));
     gulp.src('bower_components/react/react-dom.min.js')
         .pipe(gulp.dest('dist/scripts/lib'));
+    gulp.src('bower_components/firebase/firebase.js')
+        .pipe(gulp.dest('dist/scripts/lib'));
 });
 
 //browser sync
