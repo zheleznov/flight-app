@@ -1,13 +1,16 @@
 import render from './render.js';
 
 let router = (function () {
-    let navLinks = Array.from(document.querySelectorAll('.main-navigation a, .drawer-navigation a')),
+    let navLinks = Array.from(document.querySelectorAll('.main-navigation a, .side-navigation a')),
         onLoadPage = location.hash.replace('#', '');
+
+    //made active menu on page load
+    if(onLoadPage) document.querySelector('.main-navigation a[data-page*="' + onLoadPage + '"]').parentNode.classList.add('active');
 
     //clear all active links
     let clearActive = function () {
         navLinks.forEach((elem)=> {
-            elem.classList.remove('active');
+            elem.parentNode.classList.remove('active');
         });
     };
 
@@ -20,7 +23,7 @@ let router = (function () {
 
             location.hash = page;
             clearActive();
-            this.classList.add('active');
+            this.parentNode.classList.add('active');
 
             render.initPage(page);
         });

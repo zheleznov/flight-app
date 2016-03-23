@@ -1,6 +1,44 @@
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  //background: url('../images/Delta Airline on JFK Airport_HD.jpg') no-repeat;
+}
+
+main {
+  flex: 1 0 auto;
+  margin-top: 40px !important;
+}
+
+footer {
+  color: #fff;
+}
+
+
+//contacts
+.contacts-form .success-message-hide,
+.contacts-form .error-message-hide {
+  display: none;
+}
+
+.contacts-form .success-message,
+.contacts-form .error-message {
+  display: block;
+  margin-top: 50px;
+}
+
+
+
 .main-page > div > div {
   text-align: center;
 }
+
+
+
+
+
+
+
 
 //navigation
 .mdl-navigation__link.active {
@@ -16,16 +54,9 @@
   top: 20px;
 }
 
-.contacts-form .success-message,
-.contacts-form .error-message-hide {
-  display: block;
-  margin-top: 50px;
-}
 
-.contacts-form .success-message-hide,
-.contacts-form .error-message-hide {
-  display: none;
-}
+
+
 
 //airports
 .airports-form .mdl-textfield {

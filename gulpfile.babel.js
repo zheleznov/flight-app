@@ -10,12 +10,12 @@ import source from 'vinyl-source-stream';
 
 var browserSync = require('browser-sync').create(); //browser sync
 
-gulp.task('default', ['styles', 'copy-html', 'copy-bower', 'scripts'], ()=> {
+gulp.task('default', ['styles', 'copy-html', 'copy-css', 'copy-fonts', 'copy-lib-scripts', 'scripts'], ()=> {
     gulp.watch('app/sass/**/*.scss', ['styles']);
-    gulp.watch('app/src/**/*.js', ['scripts']);
+    gulp.watch('app/scripts/**/*.js', ['scripts']);
     gulp.watch('app/index.html', ['copy-html']);
     gulp.watch('app/index.html').on('change', browserSync.reload);
-    gulp.watch('app/src/**/*.js').on('change', browserSync.reload);
+    gulp.watch('app/scripts/**/*.js').on('change', browserSync.reload);
 });
 
 //run sass with autoprefixer
@@ -26,6 +26,19 @@ gulp.task('styles', ()=> {
             browsers: ['last 2 versions']
         }))
         .pipe(gulp.dest('dist/styles'))
+        .pipe(gulp.dest('app/styles'))
+});
+
+//copy css libs to product
+gulp.task('copy-css', ()=> {
+    gulp.src('app/styles/*.css')
+        .pipe(gulp.dest('dist/styles'));
+});
+
+//copy font
+gulp.task('copy-fonts', ()=> {
+    gulp.src('app/font/**/*.*')
+        .pipe(gulp.dest('dist/font'));
 });
 
 //copy index.html to product
@@ -37,7 +50,7 @@ gulp.task('copy-html', ()=> {
 //scripts task
 gulp.task('scripts', ()=> {
     var bundler = browserify({
-        entries: 'app/src/main.js',
+        entries: 'app/scripts/main.js',
         debug: true
     });
     bundler.transform(babelify);
@@ -54,18 +67,11 @@ gulp.task('scripts', ()=> {
         .pipe(gulp.dest('dist/scripts'));
 });
 
-//copy bower plugins to product folder
-gulp.task('copy-bower', ()=> {
-    gulp.src('bower_components/material-design-lite/material.min.css')
-        .pipe(gulp.dest('dist/styles'));
-    gulp.src('bower_components/material-design-lite/material.min.js')
-        .pipe(gulp.dest('dist/scripts/lib'));
-    gulp.src('bower_components/react/react.min.js')
-        .pipe(gulp.dest('dist/scripts/lib'));
-    gulp.src('bower_components/react/react-dom.min.js')
-        .pipe(gulp.dest('dist/scripts/lib'));
-    gulp.src('bower_components/firebase/firebase.js')
-        .pipe(gulp.dest('dist/scripts/lib'));
+
+//copy libs scripts to product folder
+gulp.task('copy-lib-scripts', ()=> {
+    gulp.src('app/scripts/libs/*')
+        .pipe(gulp.dest('dist/scripts/libs'));
 });
 
 //browser sync

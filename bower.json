@@ -16,8 +16,9 @@
     "tests"
   ],
   "dependencies": {
-    "material-design-lite": "^1.1.2",
     "react": "^0.14.7",
-    "firebase": "^2.4.1"
+    "firebase": "^2.4.1",
+    "Materialize": "materialize#^0.97.5",
+    "jquery-ui": "^1.11.4"
   }
 }

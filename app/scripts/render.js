@@ -3,7 +3,7 @@ import Contacts from './components/contacts.js';
 import Airports from './components/airports.js';
 
 let render = (function () {
-    let reactContainer = document.querySelector('.page-content');
+    let reactContainer = document.querySelector('.main-content');
 
     let renderPage = function (page) {
         if(page === 'about') {
