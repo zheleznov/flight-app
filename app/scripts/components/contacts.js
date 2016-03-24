@@ -27,6 +27,9 @@ export default class Contacts extends React.Component {
         if(data.name !== '' && data.message !== '' && data.email.match(/^.+@.+\..+$/)) {
             this.setState({isDisabled: false});
             this.setState({data: data});
+        } else {
+            console.log(11111111)
+            this.setState({isDisabled: true});
         }
     }
 
@@ -37,9 +40,16 @@ export default class Contacts extends React.Component {
 
         fireBase.set({userMessage: this.state.data}, (error)=> {
             if (error) {
-                Materialize.toast('Something goes wrong :( Please try again or later.', 4000)
+                Materialize.toast('Something goes wrong :( Please try again or later.', 4000);
             } else {
-                Materialize.toast('Cool! Thanks for your message!', 4000)
+                ReactDOM.findDOMNode(this.refs.name).value = '';
+                ReactDOM.findDOMNode(this.refs.email).value = '';
+                ReactDOM.findDOMNode(this.refs.message).value = '';
+                this.setState({isDisabled: true});
+
+                Materialize.toast('Cool! Thanks for your message!', 4000);
+                Materialize.updateTextFields();
+                validate_field($('input, textarea'));
             }
         });
     }
@@ -56,19 +66,19 @@ export default class Contacts extends React.Component {
                     <form className="contacts-form" action="">
                         <div className="row">
                             <div className="input-field col s8 m6 l4">
-                                <input onKeyPress={this.enterData} className="validate name" name="name" type="text" id="name" ref="name" required/>
+                                <input onChange={this.enterData} className="validate name" name="name" type="text" id="name" ref="name" required/>
                                 <label for="name">Your Name...</label>
                             </div>
                         </div>
                         <div className="row">
                             <div className="input-field col s8 m6 l4">
-                                <input onKeyPress={this.enterData} className="validate email" name="email" type="email" id="email" ref="email" required/>
+                                <input onChange={this.enterData} className="validate email" name="email" type="email" id="email" ref="email" required/>
                                 <label for="email">example@site.com</label>
                             </div>
                         </div>
                         <div className="row">
                             <div className="input-field col s12 l8 m10">
-                                <textarea onKeyPress={this.enterData} className="materialize-textarea validate" type="text" rows="3" id="message" ref="message" required></textarea>
+                                <textarea onChange={this.enterData} className="materialize-textarea validate" type="text" rows="3" id="message" ref="message" required></textarea>
                                 <label for="message">Your message goes here...</label>
                             </div>
                         </div>

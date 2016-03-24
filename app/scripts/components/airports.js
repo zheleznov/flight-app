@@ -26,6 +26,10 @@ export default class Airports extends React.Component {
         });
     }
 
+    componentDidMount(){
+        window.getAirports();
+    }
+
     render() {
         return (
             <div className="row">
@@ -35,7 +39,7 @@ export default class Airports extends React.Component {
                     <form className="airports-form" action="">
                         <div className="row">
                             <div className="input-field col s12 m6">
-                                <input className="validate airports" name="airport" type="text" id="airport" ref="airport" required/>
+                                <input className="validate airports" name="airport" type="text" id="airport" ref="airport" required autocomplete="off"/>
                                 <input type="hidden" name="air-code" id="air-code" ref="iata"/>
                                 <label for="airport">Airport name or code...</label>
                             </div>
