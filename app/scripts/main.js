@@ -55,6 +55,7 @@ $(function() {
         select: function( event, ui ) {
             // do something for click event
             $('body').find('#air-code').val(ui.item.code);
+            $('body').find('.airports-form a').removeClass('disabled');
         }
     });
 });

@@ -1,7 +1,7 @@
 import render from './render.js';
 
 let router = (function () {
-    let navLinks = Array.from(document.querySelectorAll('.main-navigation a, .side-navigation a')),
+    let navLinks = Array.from(document.querySelectorAll('.main-navigation a, .side-navigation a, .brand-logo')),
         onLoadPage = location.hash.replace('#', '');
 
     //made active menu on page load
