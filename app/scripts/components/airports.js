@@ -1,5 +1,5 @@
-import {fireBase} from '../configs.js';
 import AirportInfo from './airport-info.js';
+import * as helpers from '../helpers.js';
 
 export default class Airports extends React.Component {
     constructor(props){
@@ -27,7 +27,7 @@ export default class Airports extends React.Component {
     }
 
     componentDidMount(){
-        window.getAirports();
+       helpers.autoComplete();
     }
 
     render() {

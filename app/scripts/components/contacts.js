@@ -28,7 +28,6 @@ export default class Contacts extends React.Component {
             this.setState({isDisabled: false});
             this.setState({data: data});
         } else {
-            console.log(11111111)
             this.setState({isDisabled: true});
         }
     }

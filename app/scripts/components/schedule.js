@@ -1,3 +1,5 @@
+import * as helpers from '../helpers.js';
+
 export default class Schedule extends React.Component {
     constructor(props){
         super(props);
@@ -5,7 +7,8 @@ export default class Schedule extends React.Component {
     }
 
     componentDidMount(){
-        window.getAirports();
+        helpers.autoComplete();
+        helpers.datePicker();
     }
 
     render(){
@@ -21,6 +24,11 @@ export default class Schedule extends React.Component {
                                         <input className="validate departure-airports" name="departure-airports" type="text" id="departure-airports" ref="departure-airports" required autocomplete="off" />
                                         <input type="hidden" name="departure-air-code" id="departure-air-code" ref="departure-iata"/>
                                         <label for="departure-airports">Airport name or code...</label>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="input-field col">
+                                        <input className="validate departure-date datepicker" type="date" name="departure-date" id="departure-date" ref="departure-date" required/>
                                     </div>
                                 </div>
                             </div>
