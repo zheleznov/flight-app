@@ -59,16 +59,8 @@ export function datePicker() {
 }
 
 export function getSchedule (data) {
+    let $ = window.jQuery;
     let requestUrl = `${config.basicUrl}/from/${data.depIata}/to/${data.arrIata}/departing/${data.date.year}/${data.date.month}/${data.date.day}?appId=${config.appID}&appKey=${config.appKey}`;
-    let request = new Request (requestUrl, {
-        method: 'GET',
-        mode: 'no-cors',
-        redirect: 'follow'
-    });
 
-    fetch(request)
-        .then(function(response){
-            console.log(response)
-
-        })
+    return Promise.resolve($.ajax(requestUrl, {dataType: 'jsonp'}));
 }

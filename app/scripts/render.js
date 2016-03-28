@@ -28,7 +28,7 @@ let render = (function () {
             )
         }
 
-        if(page === 'schedule'){
+        if(page === 'schedule' || page === ''){
             ReactDOM.render(
                 <Schedule/>,
                 reactContainer
