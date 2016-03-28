@@ -19,18 +19,19 @@ export default class Schedule extends React.Component {
             }
         };
 
+        //activate preloader
+        document.querySelector('.preloader-wrapper').classList.remove('hide');
+
         //get data from the server
         helpers
             .getSchedule(data)
             .then(function (response) {
+                document.querySelector('.preloader-wrapper').classList.remove('hide');
                 console.log(response)
                 ReactDOM.render(
                     <ScheduleList data={response}/>,
                     document.querySelector('.main-content > .row > .col:last-child')
                 )
-            })
-            .catch(function (err) {
-                throw new Error(err);
             })
     }
 
@@ -76,7 +77,19 @@ export default class Schedule extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div className="col s12 m7"></div>
+                <div className="col s12 m7 center-align">
+                    <div className="preloader-wrapper big  active hide">
+                        <div className="spinner-layer spinner-blue-only">
+                            <div className="circle-clipper left">
+                                <div className="circle"></div>
+                            </div><div className="gap-patch">
+                            <div className="circle"></div>
+                        </div><div className="circle-clipper right">
+                            <div className="circle"></div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         )
     }
