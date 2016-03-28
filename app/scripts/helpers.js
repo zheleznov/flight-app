@@ -44,7 +44,7 @@ export function autoComplete (){
         select: function( event, ui ) {
             // do something for click event
             $(this).next().val(ui.item.code);
-            $('body').find('.airports-form a').removeClass('disabled');
+            $(this).closest('form').find('a').removeClass('disabled');
         }
     });
 }
@@ -56,4 +56,19 @@ export function datePicker() {
         selectMonths: true, // Creates a dropdown to control month
         selectYears: 15 //
     });
+}
+
+export function getSchedule (data) {
+    let requestUrl = `${config.basicUrl}/from/${data.depIata}/to/${data.arrIata}/departing/${data.date.year}/${data.date.month}/${data.date.day}?appId=${config.appID}&appKey=${config.appKey}`;
+    let request = new Request (requestUrl, {
+        method: 'GET',
+        mode: 'no-cors',
+        redirect: 'follow'
+    });
+
+    fetch(request)
+        .then(function(response){
+            console.log(response)
+
+        })
 }

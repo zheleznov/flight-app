@@ -38,7 +38,7 @@ export default class Airports extends React.Component {
                     <p>Welcome to airports database. Just type the name or airport code, select correct airport from the list and click 'Get Information' to get information about it</p>
                     <form className="airports-form" action="">
                         <div className="row">
-                            <div className="input-field col s12 m6">
+                            <div className="input-field col s12 m4">
                                 <input className="validate airports" name="airport" type="text" id="airport" ref="airport" required autocomplete="off"/>
                                 <input type="hidden" name="air-code" id="air-code" ref="iata"/>
                                 <label for="airport">Airport name or code...</label>
