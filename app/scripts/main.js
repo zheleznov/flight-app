@@ -1,11 +1,21 @@
 import router from './router.js';
-import {airportsAPIKey} from './configs.js';
 
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker
+        .register('/sw.js')
+        .then((registration)=> {
+            console.log("Service Worker Registered", registration);
+        })
+        .catch((err)=> {
+            console.log('Error', err)
+        })
+}
 
-let $ = window.jQuery;
+var $ = window.jQuery;
 
 //
-$(function() {
+$(function () {
+
     $(".button-collapse").sideNav({
         menuWidth: 300, // Default is 240
         edge: 'right', // Choose the horizontal origin

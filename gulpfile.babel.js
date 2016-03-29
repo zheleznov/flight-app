@@ -10,12 +10,14 @@ import source from 'vinyl-source-stream';
 
 var browserSync = require('browser-sync').create(); //browser sync
 
-gulp.task('default', ['styles', 'copy-html', 'copy-css', 'copy-fonts', 'copy-lib-scripts', 'scripts'], ()=> {
+gulp.task('default', ['styles', 'copy-html', 'copy-css', 'copy-fonts', 'copy-lib-scripts', 'service-worker', 'scripts'], ()=> {
     gulp.watch('app/sass/**/*.scss', ['styles']);
     gulp.watch('app/scripts/**/*.js', ['scripts']);
     gulp.watch('app/index.html', ['copy-html']);
     gulp.watch('app/index.html').on('change', browserSync.reload);
     gulp.watch('app/scripts/**/*.js').on('change', browserSync.reload);
+
+    gulp.watch('app/sw.js', ['service-worker']);
 });
 
 //run sass with autoprefixer
@@ -44,6 +46,26 @@ gulp.task('copy-fonts', ()=> {
 //copy index.html to product
 gulp.task('copy-html', ()=> {
     gulp.src('app/index.html')
+        .pipe(gulp.dest('dist'));
+});
+
+//service worker
+gulp.task('service-worker', ()=> {
+    var bundler = browserify({
+        entries: 'app/sw.js',
+        debug: true
+    });
+    bundler.transform(babelify);
+
+    bundler.bundle()
+        .on('error', function (err) {
+            console.error(err);
+        })
+        .pipe(source('sw.js'))
+        .pipe(buffer())
+        .pipe(sourcemaps.init({loadMaps: true}))
+        .pipe(uglify()) // Use any gulp plugins you want now
+        .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest('dist'));
 });
 
