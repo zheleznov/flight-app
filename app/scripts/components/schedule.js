@@ -2,13 +2,13 @@ import * as helpers from '../helpers.js';
 import ScheduleList from './scheduleList.js';
 
 export default class Schedule extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
 
         this.getSchedule = this.getSchedule.bind(this);
     }
 
-    getSchedule(){
+    getSchedule() {
         let data = {
             depIata: ReactDOM.findDOMNode(this.refs['departure-iata']).value,
             arrIata: ReactDOM.findDOMNode(this.refs['arrival-iata']).value,
@@ -25,22 +25,26 @@ export default class Schedule extends React.Component {
         //get data from the server
         helpers
             .getSchedule(data)
-            .then(function (response) {
+            .then((response)=> {
                 document.querySelector('.preloader-wrapper').classList.remove('hide');
-                console.log(response)
+
                 ReactDOM.render(
-                    <ScheduleList data={response}/>,
+                    <ScheduleList data={response.scheduledFlights}/>,
                     document.querySelector('.main-content > .row > .col:last-child')
                 )
             })
+            .catch((err)=> {
+                throw new Error(err);
+            })
     }
 
-    componentDidMount(){
+    componentDidMount() {
+        ReactDOM.findDOMNode(this.refs['departure-airports']).focus();
         helpers.autoComplete();
         helpers.datePicker();
     }
 
-    render(){
+    render() {
         return (
             <div className="row">
                 <div className="col s12 m5">
@@ -70,7 +74,8 @@ export default class Schedule extends React.Component {
                                 </div>
                                 <div className="row">
                                     <div className="col s4">
-                                        <a onClick={this.getSchedule} className="waves-effect waves-light btn disabled">Get Schedule</a>
+                                        <a onClick={this.getSchedule} className="waves-effect waves-light btn disabled">Get
+                                            Schedule</a>
                                     </div>
                                 </div>
                             </form>
@@ -82,11 +87,13 @@ export default class Schedule extends React.Component {
                         <div className="spinner-layer spinner-blue-only">
                             <div className="circle-clipper left">
                                 <div className="circle"></div>
-                            </div><div className="gap-patch">
-                            <div className="circle"></div>
-                        </div><div className="circle-clipper right">
-                            <div className="circle"></div>
-                        </div>
+                            </div>
+                            <div className="gap-patch">
+                                <div className="circle"></div>
+                            </div>
+                            <div className="circle-clipper right">
+                                <div className="circle"></div>
+                            </div>
                         </div>
                     </div>
                 </div>

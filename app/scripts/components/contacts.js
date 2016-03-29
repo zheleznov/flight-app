@@ -1,7 +1,7 @@
 import {fireBase} from '../configs.js';
 
 export default class Contacts extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
 
         this.state = {
@@ -17,14 +17,14 @@ export default class Contacts extends React.Component {
         this.enterData = this.enterData.bind(this);
     }
 
-    enterData(){
+    enterData() {
         let data = {};
 
         data.name = ReactDOM.findDOMNode(this.refs.name).value;
         data.email = ReactDOM.findDOMNode(this.refs.email).value;
         data.message = ReactDOM.findDOMNode(this.refs.message).value;
 
-        if(data.name !== '' && data.message !== '' && data.email.match(/^.+@.+\..+$/)) {
+        if (data.name !== '' && data.message !== '' && data.email.match(/^.+@.+\..+$/)) {
             this.setState({isDisabled: false});
             this.setState({data: data});
         } else {
@@ -35,7 +35,7 @@ export default class Contacts extends React.Component {
     sendMessage(e) {
         e.preventDefault();
 
-        if(this.state.isDisabled) return;
+        if (this.state.isDisabled) return;
 
         fireBase.set({userMessage: this.state.data}, (error)=> {
             if (error) {
@@ -53,6 +53,10 @@ export default class Contacts extends React.Component {
         });
     }
 
+    componentDidMount() {
+        ReactDOM.findDOMNode(this.refs.name).focus();
+    }
+
     render() {
         let isDisabled = this.state.isDisabled;
 
@@ -65,25 +69,29 @@ export default class Contacts extends React.Component {
                     <form className="contacts-form" action="">
                         <div className="row">
                             <div className="input-field col s8 m6 l4">
-                                <input onChange={this.enterData} className="validate name" name="name" type="text" id="name" ref="name" required/>
+                                <input onChange={this.enterData} className="validate name" name="name" type="text"
+                                       id="name" ref="name" required/>
                                 <label for="name">Your Name...</label>
                             </div>
                         </div>
                         <div className="row">
                             <div className="input-field col s8 m6 l4">
-                                <input onChange={this.enterData} className="validate email" name="email" type="email" id="email" ref="email" required/>
+                                <input onChange={this.enterData} className="validate email" name="email" type="email"
+                                       id="email" ref="email" required/>
                                 <label for="email">example@site.com</label>
                             </div>
                         </div>
                         <div className="row">
                             <div className="input-field col s12 l8 m10">
-                                <textarea onChange={this.enterData} className="materialize-textarea validate" type="text" rows="3" id="message" ref="message" required></textarea>
+                                <textarea onChange={this.enterData} className="materialize-textarea validate"
+                                          type="text" rows="3" id="message" ref="message" required></textarea>
                                 <label for="message">Your message goes here...</label>
                             </div>
                         </div>
                         <div className="row">
                             <div className="col s2">
-                                <a className={isDisabled === true ? 'waves-effect waves-light btn disabled' : 'waves-effect waves-light btn'} onClick={this.sendMessage}>Send</a>
+                                <a className={isDisabled === true ? 'waves-effect waves-light btn disabled' : 'waves-effect waves-light btn'}
+                                   onClick={this.sendMessage}>Send</a>
                             </div>
                         </div>
                     </form>
