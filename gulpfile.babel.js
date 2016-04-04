@@ -7,6 +7,7 @@ import browserify from 'browserify';
 import babelify from 'babelify';
 import buffer from 'vinyl-buffer';
 import source from 'vinyl-source-stream';
+import concat from 'gulp-concat';
 
 var browserSync = require('browser-sync').create(); //browser sync
 
@@ -31,22 +32,24 @@ gulp.task('styles', ()=> {
         .pipe(gulp.dest('app/styles'))
 });
 
+//copy index.html to product
+gulp.task('copy-html', ()=> {
+    gulp.src('app/index.html')
+        .pipe(gulp.dest('dist'));
+});
+
 //copy css libs to product
 gulp.task('copy-css', ()=> {
     gulp.src('app/styles/*.css')
-        .pipe(gulp.dest('dist/styles'));
+        .pipe(concat('libs.css'))
+        .pipe(gulp.dest('dist/styles'))
+        .pipe(gulp.dest('app/styles'));
 });
 
 //copy font
 gulp.task('copy-fonts', ()=> {
     gulp.src('app/font/**/*.*')
         .pipe(gulp.dest('dist/font'));
-});
-
-//copy index.html to product
-gulp.task('copy-html', ()=> {
-    gulp.src('app/index.html')
-        .pipe(gulp.dest('dist'));
 });
 
 //service worker
@@ -92,8 +95,14 @@ gulp.task('scripts', ()=> {
 
 //copy libs scripts to product folder
 gulp.task('copy-lib-scripts', ()=> {
-    gulp.src('app/scripts/libs/*')
-        .pipe(gulp.dest('dist/scripts/libs'));
+    //gulp.src('app/scripts/libs/*')
+    //.pipe(gulp.dest('dist/scripts/libs'));
+    gulp.src(['app/scripts/libs/jquery.min.js', 'app/scripts/libs/jquery-ui.min.js',
+            'app/scripts/libs/materialize.min.js', 'app/scripts/libs/react.min.js',
+            'app/scripts/libs/react-dom.min.js', 'app/scripts/libs/firebase.js'])
+        .pipe(concat('all.js'))
+        .pipe(gulp.dest('dist/scripts'))
+        .pipe(gulp.dest('app/scripts'))
 });
 
 //browser sync
