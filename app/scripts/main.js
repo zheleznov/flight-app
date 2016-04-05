@@ -24,7 +24,7 @@ if ('serviceWorker' in navigator) {
 }
 
 //working with IndexedDB
-let dbPromise = idb.open('flight-db', 2, upgradeDB=> {
+/*let dbPromise = idb.open('flight-db', 2, upgradeDB=> {
     switch(upgradeDB.oldVersion){
         case 0:
             let keyValStore = upgradeDB.createObjectStore('testing');
@@ -32,7 +32,6 @@ let dbPromise = idb.open('flight-db', 2, upgradeDB=> {
         case 1:
             upgradeDB.createObjectStore('people', {keyPath: 'name'});
     }
-
 });
 
 dbPromise.then(db=> {
@@ -42,6 +41,19 @@ dbPromise.then(db=> {
 }).then(val=> {
     console.log(val);
 });
+
+dbPromise.then(db=> {
+    let tx = db.transaction('people', 'readwrite');
+    let peopleStore = tx.objectStore('people');
+
+    peopleStore.put({
+        name: 'Roma',
+        age: 33,
+        animal: 'Cats'
+    });
+
+    return tx.complete;
+});*/
 
 
 //side navigation

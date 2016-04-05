@@ -26,6 +26,10 @@ export default class Schedule extends React.Component {
         helpers
             .getSchedule(data)
             .then((response)=> {
+                //save response from server to idb
+                helpers.saveToDB(response.scheduledFlights);
+                console.log(response.scheduledFlights)
+                //show results
                 document.querySelector('.preloader-wrapper').classList.remove('hide');
 
                 ReactDOM.render(

@@ -5,7 +5,7 @@ self.addEventListener('install', (event)=> {
         caches.open(staticVersion)
             .then((cache)=> {
                 return cache.addAll([
-                    '/skeleton',
+                    '/',
                     'scripts/all.js',
                     'scripts/main.js',
                     'scripts/main.js.map',
@@ -19,11 +19,11 @@ self.addEventListener('install', (event)=> {
 self.addEventListener('fetch', (event)=> {
     let requestUrl = new URL(event.request.url);
 
-    if (requestUrl.origin === location.origin) {
+    /*if (requestUrl.origin === location.origin) {
         if (requestUrl.pathName === '/') {
             event.respondWith(caches.match('/skeleton'));
         }
-    }
+    }*/
 
     event.respondWith(
         caches.match(event.request).then((response)=> {
