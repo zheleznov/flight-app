@@ -27,8 +27,8 @@ export default class Schedule extends React.Component {
             .getSchedule(data)
             .then((response)=> {
                 //save response from server to idb
-                helpers.saveToDB(response.scheduledFlights);
-                console.log(response.scheduledFlights)
+                helpers.saveToDB(data, response.scheduledFlights);
+
                 //show results
                 document.querySelector('.preloader-wrapper').classList.remove('hide');
 
@@ -38,7 +38,19 @@ export default class Schedule extends React.Component {
                 )
             })
             .catch((err)=> {
-                throw new Error(err);
+                //show content if we have offline mode
+                let key = data.depIata + '-' + data.arrIata;
+
+                if(localStorage[key]) {
+                    document.querySelector('.preloader-wrapper').classList.remove('hide');
+
+                    ReactDOM.render(
+                        <ScheduleList data={JSON.parse(localStorage[key])}/>,
+                        document.querySelector('.main-content > .row > .col:last-child')
+                    )
+                }
+
+                //throw new Error(err);
             })
     }
 

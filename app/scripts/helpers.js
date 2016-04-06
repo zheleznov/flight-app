@@ -85,30 +85,34 @@ export function getSchedule (data) {
     return Promise.resolve($.ajax(requestUrl, {dataType: 'jsonp'}));
 }
 
-export function saveToDB(data) {
-    let dbPromise = idb.open('flight-db', 1, upgradeDB=> {
+export function saveToDB(cities, data) {
+    /*let versNumber = parseInt(localStorage.dbVersion) || 0;
+    versNumber += 1;
+
+    let dbPromise = idb.open('flight-db', versNumber, upgradeDB=> {
         switch (upgradeDB.oldVersion) {
             case 0:
-                let store = upgradeDB.createObjectStore('schedule', {keyPath: 'referenceCode'});
-                console.log(data)
-                data.forEach(elem=> {
-                    store.put({
-                        referenceCode: elem.referenceCode
-                    });
-                });
+                upgradeDB.createObjectStore(cities.depIata + '-' + cities.arrIata, {keyPath: 'index'});
         }
     });
 
-    /*dbPromise.then(db=> {
-        let tx = db.transaction('schedule', 'readwrite');
-        let store = tx.objectStore('schedule');
+    dbPromise.then(db=> {
+        let tx = db.transaction(cities.depIata + '-' + cities.arrIata, 'readwrite');
+        let store = tx.objectStore(cities.depIata + '-' + cities.arrIata);
 
-        data.forEach(elem=> {
+        data.forEach((elem, index)=> {
             store.put({
-                referenceCode: elem
+                index: index,
+                flightNumber: elem.flightNumber,
+                departureAirportFsCode: elem.departureAirportFsCode,
+                arrivalAirportFsCode: elem.arrivalAirportFsCode,
+                departureTime: elem.departureTime,
+                arrivalTime: elem.arrivalTime
             });
         });
 
         return tx.complete;
     });*/
+    let key = cities.depIata + '-' + cities.arrIata;
+    localStorage[key] = JSON.stringify(data);
 }
