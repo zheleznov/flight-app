@@ -8,7 +8,9 @@ export default class Schedule extends React.Component {
         this.getSchedule = this.getSchedule.bind(this);
     }
 
-    getSchedule() {
+    getSchedule(e) {
+        if (e.target.classList.contains('disabled')) return;
+        console.log(2222222222)
         let data = {
             depIata: ReactDOM.findDOMNode(this.refs['departure-iata']).value,
             arrIata: ReactDOM.findDOMNode(this.refs['arrival-iata']).value,
@@ -18,7 +20,7 @@ export default class Schedule extends React.Component {
                 day: new Date().getDate()
             }
         };
-
+console.log(111111111111)
         //activate preloader
         document.querySelector('.preloader-wrapper').classList.remove('hide');
 
@@ -49,7 +51,6 @@ export default class Schedule extends React.Component {
                         document.querySelector('.main-content > .row > .col:last-child')
                     )
                 }
-
                 //throw new Error(err);
             })
     }
@@ -57,7 +58,6 @@ export default class Schedule extends React.Component {
     componentDidMount() {
         ReactDOM.findDOMNode(this.refs['departure-airports']).focus();
         helpers.autoComplete();
-        helpers.datePicker();
     }
 
     render() {

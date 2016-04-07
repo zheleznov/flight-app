@@ -19,7 +19,6 @@ export function autoComplete (){
                     key: config.airportsAPIKey // dont forget to add your API Key from your air-port-codes.com account
                 },
                 success: function( data ) {
-                    console.log(targetInput)
                     if (data.status) { // success
                         response( $.map( data.airports, function( item ) {
                             let storage = localStorage.airports !== undefined ? JSON.parse(localStorage.airports) : [];

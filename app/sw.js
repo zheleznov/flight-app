@@ -10,7 +10,8 @@ self.addEventListener('install', (event)=> {
                     'scripts/main.js',
                     'scripts/main.js.map',
                     'styles/app.css',
-                    'styles/libs.css'
+                    'styles/libs.css',
+                    'http://fonts.googleapis.com/icon?family=Material+Icons'
                 ])
             })
     )
