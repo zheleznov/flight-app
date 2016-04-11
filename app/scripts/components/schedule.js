@@ -9,8 +9,9 @@ export default class Schedule extends React.Component {
     }
 
     getSchedule(e) {
+        e.preventDefault();
+
         if (e.target.classList.contains('disabled')) return;
-        console.log(2222222222)
         let data = {
             depIata: ReactDOM.findDOMNode(this.refs['departure-iata']).value,
             arrIata: ReactDOM.findDOMNode(this.refs['arrival-iata']).value,
@@ -20,9 +21,9 @@ export default class Schedule extends React.Component {
                 day: new Date().getDate()
             }
         };
-console.log(111111111111)
+
         //activate preloader
-        document.querySelector('.preloader-wrapper').classList.remove('hide');
+        //document.querySelector('.preloader-wrapper').classList.remove('hide');
 
         //get data from the server
         helpers
@@ -32,11 +33,11 @@ console.log(111111111111)
                 helpers.saveToDB(data, response.scheduledFlights);
 
                 //show results
-                document.querySelector('.preloader-wrapper').classList.remove('hide');
+                //document.querySelector('.preloader-wrapper').classList.add('hide');
 
                 ReactDOM.render(
                     <ScheduleList data={response.scheduledFlights}/>,
-                    document.querySelector('.main-content > .row > .col:last-child')
+                    document.querySelector('.schedule-list')
                 )
             })
             .catch((err)=> {
@@ -44,11 +45,11 @@ console.log(111111111111)
                 let key = data.depIata + '-' + data.arrIata;
 
                 if(localStorage[key]) {
-                    document.querySelector('.preloader-wrapper').classList.remove('hide');
+                    //document.querySelector('.preloader-wrapper').classList.remove('hide');
 
                     ReactDOM.render(
                         <ScheduleList data={JSON.parse(localStorage[key])}/>,
-                        document.querySelector('.main-content > .row > .col:last-child')
+                        document.querySelector('.schedule-list')
                     )
                 }
                 //throw new Error(err);
@@ -99,6 +100,9 @@ console.log(111111111111)
                     </div>
                 </div>
                 <div className="col s12 m7 center-align">
+                    <div className="row">
+                        <div className="col schedule-list"></div>
+                    </div>
                     <div className="preloader-wrapper big  active hide">
                         <div className="spinner-layer spinner-blue-only">
                             <div className="circle-clipper left">

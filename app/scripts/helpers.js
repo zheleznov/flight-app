@@ -85,33 +85,6 @@ export function getSchedule (data) {
 }
 
 export function saveToDB(cities, data) {
-    /*let versNumber = parseInt(localStorage.dbVersion) || 0;
-    versNumber += 1;
-
-    let dbPromise = idb.open('flight-db', versNumber, upgradeDB=> {
-        switch (upgradeDB.oldVersion) {
-            case 0:
-                upgradeDB.createObjectStore(cities.depIata + '-' + cities.arrIata, {keyPath: 'index'});
-        }
-    });
-
-    dbPromise.then(db=> {
-        let tx = db.transaction(cities.depIata + '-' + cities.arrIata, 'readwrite');
-        let store = tx.objectStore(cities.depIata + '-' + cities.arrIata);
-
-        data.forEach((elem, index)=> {
-            store.put({
-                index: index,
-                flightNumber: elem.flightNumber,
-                departureAirportFsCode: elem.departureAirportFsCode,
-                arrivalAirportFsCode: elem.arrivalAirportFsCode,
-                departureTime: elem.departureTime,
-                arrivalTime: elem.arrivalTime
-            });
-        });
-
-        return tx.complete;
-    });*/
     let key = cities.depIata + '-' + cities.arrIata;
     localStorage[key] = JSON.stringify(data);
 }
