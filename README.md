@@ -9,7 +9,7 @@
 ## Used technologies:
 * ES6
 * ReactJS, Google Material Design
-* Service Workers, Cache and IndexdDB
+* Service Workers, Cache and LocalStorage
 
 ## Prerequisites
 
