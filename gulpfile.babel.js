@@ -100,7 +100,7 @@ gulp.task('copy-lib-scripts', ()=> {
     gulp.src(['app/scripts/libs/jquery.min.js', 'app/scripts/libs/jquery-ui.min.js',
             'app/scripts/libs/materialize.min.js', 'app/scripts/libs/react.min.js',
             'app/scripts/libs/react-dom.min.js', 'app/scripts/libs/firebase.js'])
-        .pipe(concat('all.js'))
+        .pipe(concat('libs.js'))
         .pipe(gulp.dest('dist/scripts'))
         .pipe(gulp.dest('app/scripts'))
 });

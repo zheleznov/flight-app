@@ -23,7 +23,7 @@ export default class Schedule extends React.Component {
         };
 
         //activate preloader
-        //document.querySelector('.preloader-wrapper').classList.remove('hide');
+        document.querySelector('.preloader-wrapper').classList.remove('hide');
 
         //get data from the server
         helpers
@@ -33,7 +33,7 @@ export default class Schedule extends React.Component {
                 helpers.saveToDB(data, response.scheduledFlights);
 
                 //show results
-                //document.querySelector('.preloader-wrapper').classList.add('hide');
+                document.querySelector('.preloader-wrapper').classList.add('hide');
 
                 ReactDOM.render(
                     <ScheduleList data={response.scheduledFlights}/>,
@@ -45,7 +45,7 @@ export default class Schedule extends React.Component {
                 let key = data.depIata + '-' + data.arrIata;
 
                 if(localStorage[key]) {
-                    //document.querySelector('.preloader-wrapper').classList.remove('hide');
+                    document.querySelector('.preloader-wrapper').classList.remove('hide');
 
                     ReactDOM.render(
                         <ScheduleList data={JSON.parse(localStorage[key])}/>,
