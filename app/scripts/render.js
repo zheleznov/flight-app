@@ -39,7 +39,6 @@ let render = (function () {
 
     return {
         initPage(page){
-            console.log(page)
             renderPage(page);
         }
     }

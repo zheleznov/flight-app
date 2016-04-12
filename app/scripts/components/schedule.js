@@ -2,13 +2,16 @@ import * as helpers from '../helpers.js';
 import ScheduleList from './scheduleList.js';
 
 export default class Schedule extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
 
         this.getSchedule = this.getSchedule.bind(this);
     }
 
-    getSchedule(){
+    getSchedule(e) {
+        e.preventDefault();
+
+        if (e.target.classList.contains('disabled')) return;
         let data = {
             depIata: ReactDOM.findDOMNode(this.refs['departure-iata']).value,
             arrIata: ReactDOM.findDOMNode(this.refs['arrival-iata']).value,
@@ -25,22 +28,40 @@ export default class Schedule extends React.Component {
         //get data from the server
         helpers
             .getSchedule(data)
-            .then(function (response) {
-                document.querySelector('.preloader-wrapper').classList.remove('hide');
-                console.log(response)
+            .then((response)=> {
+                //save response from server to idb
+                helpers.saveToDB(data, response.scheduledFlights);
+
+                //show results
+                document.querySelector('.preloader-wrapper').classList.add('hide');
+
                 ReactDOM.render(
-                    <ScheduleList data={response}/>,
-                    document.querySelector('.main-content > .row > .col:last-child')
+                    <ScheduleList data={response.scheduledFlights}/>,
+                    document.querySelector('.schedule-list')
                 )
+            })
+            .catch((err)=> {
+                //show content if we have offline mode
+                let key = data.depIata + '-' + data.arrIata;
+
+                if(localStorage[key]) {
+                    document.querySelector('.preloader-wrapper').classList.remove('hide');
+
+                    ReactDOM.render(
+                        <ScheduleList data={JSON.parse(localStorage[key])}/>,
+                        document.querySelector('.schedule-list')
+                    )
+                }
+                //throw new Error(err);
             })
     }
 
-    componentDidMount(){
+    componentDidMount() {
+        ReactDOM.findDOMNode(this.refs['departure-airports']).focus();
         helpers.autoComplete();
-        helpers.datePicker();
     }
 
-    render(){
+    render() {
         return (
             <div className="row">
                 <div className="col s12 m5">
@@ -70,7 +91,8 @@ export default class Schedule extends React.Component {
                                 </div>
                                 <div className="row">
                                     <div className="col s4">
-                                        <a onClick={this.getSchedule} className="waves-effect waves-light btn disabled">Get Schedule</a>
+                                        <a onClick={this.getSchedule} className="waves-effect waves-light btn disabled">Get
+                                            Schedule</a>
                                     </div>
                                 </div>
                             </form>
@@ -78,15 +100,20 @@ export default class Schedule extends React.Component {
                     </div>
                 </div>
                 <div className="col s12 m7 center-align">
+                    <div className="row">
+                        <div className="col schedule-list"></div>
+                    </div>
                     <div className="preloader-wrapper big  active hide">
                         <div className="spinner-layer spinner-blue-only">
                             <div className="circle-clipper left">
                                 <div className="circle"></div>
-                            </div><div className="gap-patch">
-                            <div className="circle"></div>
-                        </div><div className="circle-clipper right">
-                            <div className="circle"></div>
-                        </div>
+                            </div>
+                            <div className="gap-patch">
+                                <div className="circle"></div>
+                            </div>
+                            <div className="circle-clipper right">
+                                <div className="circle"></div>
+                            </div>
                         </div>
                     </div>
                 </div>

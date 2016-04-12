@@ -1,14 +1,22 @@
-import ScheduleListItem from './schedule-list-item.js';
-
 export default class ScheduleList extends React.Component {
     constructor(props) {
         super(props);
     }
 
-    render(){
-        let data = this.props.data;
+    render() {
+        let template = this.props.data.map((item)=> {
+            return (
+                <tr>
+                    <td>{item.flightNumber}</td>
+                    <td>{item.departureAirportFsCode}</td>
+                    <td>{item.arrivalAirportFsCode}</td>
+                    <td>{item.departureTime}</td>
+                    <td>{item.arrivalTime}</td>
+                </tr>
+            )
+        });
 
-        return(
+        return (
             <div>
                 <table className="bordered">
                     <thead>
@@ -20,9 +28,8 @@ export default class ScheduleList extends React.Component {
                         <th data-field="arr-time">Arrival Time</th>
                     </tr>
                     </thead>
-
                     <tbody>
-                        <ScheduleListItem data={data}/>
+                    {template}
                     </tbody>
                 </table>
             </div>
